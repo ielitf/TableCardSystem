@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class SharedPreferenceTools {
-    public static final String FILE_NAME = "meetingdata";
+    public static final String FILE_NAME = "tableCardSystem_sp";
     /**
      * 保存数据到共享参数的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *

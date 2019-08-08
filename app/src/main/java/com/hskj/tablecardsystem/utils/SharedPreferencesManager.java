@@ -92,7 +92,7 @@ public class SharedPreferencesManager {
     /**
      * 姓名
      */
-    private static final String PERSON_NAME = "persona_name";
+    private static final String PERSON_NAME = "person_name";
     public static void setPersonName(String jsonStr) {
         if (null != sp) {
             sp.edit().putString(PERSON_NAME, jsonStr).commit();
