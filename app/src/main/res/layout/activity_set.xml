@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="服务器IP："
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/service_ip_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edittext"
+            android:inputType="textWebEditText"
+            android:hint="例:192.168.10.1或:www.xxx.com.cn"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账号:"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/account_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="请输入账号"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="密码:"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="会议室编号："
+            android:layout_marginTop="30dp"
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/roomNum_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edittext"
+            android:inputType="number"
+            android:hint="例:001,具体请与后台保持一致"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="桌号："
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/tableNum_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edittext"
+            android:inputType="number"
+            android:hint="例:001,具体请与后台保持一致"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="姓名："
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edittext"
+            android:hint="例：李逍遥"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="字体大小："
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/size_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:inputType="number"
+            android:background="@drawable/bg_edittext"
+            android:hint="默认大小：200"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:visibility="visible"
+                />
+            <Button
+                android:id="@+id/confirm_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                />
+            <Button
+                android:id="@+id/setting_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置"
+                android:visibility="visible"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
