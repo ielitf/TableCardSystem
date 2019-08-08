@@ -45,7 +45,7 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/set"
+        android:id="@+id/setting_ibtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -6,6 +6,8 @@ public class CodeConstants {
     public static int API_PORT = 8081;
     public static String TABLE_NUMBER = "table_number";
 
+    private static final String CACHED_HOMEPAGE_DATA = "cached_homepage_data";
+
     public static String IP_HOST = "ip_host";
     public static String CLIENT_ID = "_client_id_zp_";
     public static String  ZP_NAME = "_zpname_";

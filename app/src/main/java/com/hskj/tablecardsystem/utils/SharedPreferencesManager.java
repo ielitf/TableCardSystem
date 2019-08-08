@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPreferencesManager {
-    static SharedPreferences sp;
+    private static SharedPreferences sp;
 
     public static void init(Context context, String name) {
         sp = context.getSharedPreferences(name, Context.MODE_PRIVATE);
@@ -15,7 +15,7 @@ public class SharedPreferencesManager {
     private static final String ACCOUNT = "account";
     public static void setAccount(String num) {
         if (null != sp) {
-            sp.edit().putString(ACCOUNT, num).commit();
+            sp.edit().putString(ACCOUNT, num).apply();
         }
     }
 
@@ -31,7 +31,7 @@ public class SharedPreferencesManager {
     private static final String PASSWORD = "password";
     public static void setPassword(String num) {
         if (null != sp) {
-            sp.edit().putString(PASSWORD, num).commit();
+            sp.edit().putString(PASSWORD, num).apply();
         }
     }
 
@@ -47,7 +47,7 @@ public class SharedPreferencesManager {
     private static final String SERVICE_IP = "service_ip";
     public static void setServiceIp(String num) {
         if (null != sp) {
-            sp.edit().putString(SERVICE_IP, num).commit();
+            sp.edit().putString(SERVICE_IP, num).apply();
         }
     }
 
@@ -63,7 +63,7 @@ public class SharedPreferencesManager {
     private static final String ROOM_NUM = "room_num";
     public static void setRoomNum(String num) {
         if (null != sp) {
-            sp.edit().putString(ROOM_NUM, num).commit();
+            sp.edit().putString(ROOM_NUM, num).apply();
         }
     }
 
@@ -79,7 +79,7 @@ public class SharedPreferencesManager {
     private static final String TABLE_NUM = "table_num";
     public static void setTableNum(String num) {
         if (null != sp) {
-            sp.edit().putString(TABLE_NUM, num).commit();
+            sp.edit().putString(TABLE_NUM, num).apply();
         }
     }
 
@@ -95,7 +95,7 @@ public class SharedPreferencesManager {
     private static final String PERSON_NAME = "person_name";
     public static void setPersonName(String jsonStr) {
         if (null != sp) {
-            sp.edit().putString(PERSON_NAME, jsonStr).commit();
+            sp.edit().putString(PERSON_NAME, jsonStr).apply();
         }
     }
 
@@ -111,7 +111,7 @@ public class SharedPreferencesManager {
     private static final String TEXT_SIZE = "text_size";
     public static void setTextSize(String jsonStr) {
         if (null != sp) {
-            sp.edit().putString(TEXT_SIZE, jsonStr).commit();
+            sp.edit().putString(TEXT_SIZE, jsonStr).apply();
         }
     }
 
@@ -121,22 +121,6 @@ public class SharedPreferencesManager {
         }
         return "";
     }
-    /**
-     * 缓存主页数据
-     */
-    private static final String CACHED_HOMEPAGE_DATA = "cached_homepage_data";
-    public static void setCachedHomepageData(String jsonStr) {
-        if (null != sp) {
-            sp.edit().putString(CACHED_HOMEPAGE_DATA, jsonStr).commit();
-        }
-    }
-
-    public static String getCachedHomepageData() {
-        if (null != sp) {
-            return sp.getString(CACHED_HOMEPAGE_DATA, null);
-        }
-        return null;
-    }
 
     /**
      * 是否是第一次使用
@@ -144,7 +128,7 @@ public class SharedPreferencesManager {
     private static final String IS_FIRST_USE = "Is_app_first_use";
     public static void setIsFirstUse(boolean value) {
         if (null != sp) {
-            sp.edit().putBoolean(IS_FIRST_USE, value).commit();
+            sp.edit().putBoolean(IS_FIRST_USE, value).apply();
         }
     }
 

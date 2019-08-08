@@ -13,7 +13,7 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		CrashHandler.getInstance().init(this);
+//		CrashHandler.getInstance().init(this);
 		SharedPreferencesManager.init(getApplicationContext(), SHARED_PREFERENCE_NAME);
 		if(SharedPreferencesManager.getIsFirstUse()){
 			SDCardUtils.writeTxt("192.168.10.2:1883",CodeConstants.IP_HOST);

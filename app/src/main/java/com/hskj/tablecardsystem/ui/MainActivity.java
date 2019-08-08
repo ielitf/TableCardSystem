@@ -1,19 +1,20 @@
 package com.hskj.tablecardsystem.ui;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.hskj.tablecardsystem.R;
 import com.hskj.tablecardsystem.listener.NameCallBack;
 import com.hskj.tablecardsystem.listener.SignCallBack;
@@ -21,32 +22,29 @@ import com.hskj.tablecardsystem.utils.LogUtil;
 import com.hskj.tablecardsystem.utils.MqttService;
 import com.hskj.tablecardsystem.utils.SharedPreferencesManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NameCallBack, SignCallBack, View.OnClickListener {
+public class MainActivity extends Activity implements NameCallBack, SignCallBack, View.OnClickListener {
     public static final int MESSAGE_NAME = 1;
     public static final int MESSAGE_SIGN = 2;
     private TextView nameTV, stateTV;//人名，签到状态
     private ImageView set_img;//设置
-    private String name,sign;
+    private String name, sign;
     private Intent intent;
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case MESSAGE_NAME:
                     nameTV.setText(name);
                     stateTV.setText("未签到");
                     SharedPreferencesManager.setPersonName(name);
                     break;
                 case MESSAGE_SIGN:
-                    if("1".equals(sign)){
+                    if ("1".equals(sign)) {
                         stateTV.setText("签到成功");
-                    }else{
+                    } else {
                         stateTV.setText("签到失败");
                     }
                     break;
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NameCallBack, Sig
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements NameCallBack, Sig
         MqttService.setSignCallBack(this);
         nameTV = findViewById(R.id.name);
         stateTV = findViewById(R.id.state);
-        set_img = findViewById(R.id.set);
+        set_img = findViewById(R.id.setting_ibtn);
         set_img.setOnClickListener(this);
 
         nameTV.setText(SharedPreferencesManager.getPersonName());
-        if(!TextUtils.isEmpty(SharedPreferencesManager.getTextSize())){
+        if (!TextUtils.isEmpty(SharedPreferencesManager.getTextSize())) {
             nameTV.setTextSize(Float.parseFloat(SharedPreferencesManager.getTextSize()));
         }
     }
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NameCallBack, Sig
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 1){
+        if (resultCode == 1) {
             stopService(intent);
             startService(intent);
             nameTV.setText(data.getStringExtra("name"));
@@ -115,14 +114,15 @@ public class MainActivity extends AppCompatActivity implements NameCallBack, Sig
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.set:
-                Intent intent = new Intent(this,SetActivity.class);
-                startActivityForResult(intent,1);
+            case R.id.setting_ibtn:
+                Intent intent = new Intent(this, SetActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             default:
                 break;
         }
     }
+
     /**
      * 判断服务是否运行
      */
@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements NameCallBack, Sig
         }
         return false;
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
