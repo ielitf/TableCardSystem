@@ -1,9 +1,12 @@
 package com.hskj.tablecardsystem.ui;
 
+import android.content.ComponentName;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -14,9 +17,12 @@ import android.widget.Toast;
 
 import com.hskj.tablecardsystem.R;
 import com.hskj.tablecardsystem.control.CodeConstants;
-import com.hskj.tablecardsystem.utils.SharedPreferenceTools;
+import com.hskj.tablecardsystem.utils.LogUtil;
+import com.hskj.tablecardsystem.utils.MqttService;
+import com.hskj.tablecardsystem.utils.SDCardUtils;
+import com.hskj.tablecardsystem.utils.SharedPreferencesManager;
 
-public class SetActivity extends AppCompatActivity implements View.OnClickListener {
+public class SetActivity3 extends AppCompatActivity implements View.OnClickListener {
     private EditText ipET,roomNumET,tableNumET,nameEditET,textSizeET,accountET,passwordET;
     private Button confirmBtn,cancleBtn,setBtn;
     private String ip,roomNum,tableNum,name,textSize,account,password;
@@ -38,13 +44,13 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
         nameEditET  = findViewById(R.id.name_edit_text);
         textSizeET  = findViewById(R.id.size_edit_text);
 
-        account = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.SERVICE_ACCOUNT,"");
-        password = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.SERVICE_PASSWORD,"");
-        ip = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.SERVICE_IP,"");
-        roomNum = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.ROOM_NUM,"");
-        tableNum = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.TABLE_NUM,"");
-        name = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.PERSON_NAME,"");
-        textSize = (String) SharedPreferenceTools.getValueFromSP(CodeConstants.TEXT_SIZE,"200");
+        account = SharedPreferencesManager.getAccount();
+        password = SharedPreferencesManager.getPassword();
+        ip = SharedPreferencesManager.getServiceIp();
+        roomNum = SharedPreferencesManager.getRoomNum();
+        tableNum = SharedPreferencesManager.getTableNum();
+        name = SharedPreferencesManager.getPersonName();
+        textSize = SharedPreferencesManager.getTextSize();
 
         ipET.setText(ip);
         accountET.setText(account);
@@ -90,26 +96,29 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(this,"请输入桌牌号",Toast.LENGTH_SHORT).show();
                     break;
                 }
-
-                SharedPreferenceTools.putValueIntoSP(CodeConstants.SERVICE_IP,ipET.getText());
-                SharedPreferenceTools.putValueIntoSP(CodeConstants.SERVICE_ACCOUNT,accountET.getText());
-                SharedPreferenceTools.putValueIntoSP(CodeConstants.SERVICE_PASSWORD,passwordET.getText());
+                SharedPreferencesManager.setServiceIp(ipET.getText()+"");
+                SharedPreferencesManager.setAccount(accountET.getText()+"");
+                SharedPreferencesManager.setPassword(passwordET.getText()+"");
 
                 intent.putExtra("roomNumber",roomNumET.getText()+"");
-                SharedPreferenceTools.putValueIntoSP(CodeConstants.ROOM_NUM,roomNumET.getText());
+                SharedPreferencesManager.setRoomNum(roomNumET.getText()+"");
 
                 intent.putExtra("tableNumber",tableNumET.getText()+"");
-                SharedPreferenceTools.putValueIntoSP(CodeConstants.TABLE_NUM,tableNumET.getText());
+                SharedPreferencesManager.setTableNum(tableNumET.getText()+"");
+
+//                MqttService.URL_QUERY = "tcp://" + ipET.getText() + ":1883";
+//                MqttService.clientId = roomNumET.getText() + CodeConstants.CLIENT_ID+ tableNumET.getText();
+//                MqttService.TOPIC_NAME = roomNumET.getText() + CodeConstants.ZP_NAME+ tableNumET.getText();
+//                MqttService.TOPIC_SIGN = roomNumET.getText() + CodeConstants.ZP_SIGN + tableNumET.getText();
 
                 if(TextUtils.isEmpty(textSizeET.getText())){
                     intent.putExtra("textSize",200+"");//
-                    SharedPreferenceTools.putValueIntoSP(CodeConstants.TEXT_SIZE,"200");
                 }else{
                     intent.putExtra("textSize",textSizeET.getText()+"");
-                    SharedPreferenceTools.putValueIntoSP(CodeConstants.TEXT_SIZE,textSizeET.getText());
+                    SharedPreferencesManager.setTextSize(textSizeET.getText()+"");
                 }
                 intent.putExtra("name",nameEditET.getText()+"");
-                SharedPreferenceTools.putValueIntoSP(CodeConstants.PERSON_NAME,nameEditET.getText());
+                SharedPreferencesManager.setPersonName(nameEditET.getText()+"");
                 setResult(1,intent);
                 finish();
                 break;

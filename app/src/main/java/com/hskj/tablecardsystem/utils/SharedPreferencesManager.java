@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPreferencesManager {
+    private static final String SHARED_PREFERENCE_NAME = "tableCardSystem_sp";
     private static SharedPreferences sp;
 
-    public static void init(Context context, String name) {
-        sp = context.getSharedPreferences(name, Context.MODE_PRIVATE);
+    public static void init(Context context) {
+        sp = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
     /**
      * 登录账号

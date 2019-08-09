@@ -24,6 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ui.SetActivity3"
+            android:theme="@style/Theme.DialogActivity"
+            />
         <activity android:name=".ui.SetActivity"
             android:theme="@style/Theme.DialogActivity"
             />

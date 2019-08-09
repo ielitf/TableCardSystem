@@ -3,18 +3,19 @@ package com.hskj.tablecardsystem.control;
 import android.app.Application;
 
 import com.hskj.tablecardsystem.utils.SDCardUtils;
+import com.hskj.tablecardsystem.utils.SharedPreferenceTools;
 import com.hskj.tablecardsystem.utils.SharedPreferencesManager;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
 
 public class MyApplication extends Application {
-	private static final String SHARED_PREFERENCE_NAME = "tableCardSystem_sp";
 	@Override
 	public void onCreate() {
 		super.onCreate();
 //		CrashHandler.getInstance().init(this);
-		SharedPreferencesManager.init(getApplicationContext(), SHARED_PREFERENCE_NAME);
+		SharedPreferencesManager.init(getApplicationContext());
+		SharedPreferenceTools.init(getApplicationContext());
 		if(SharedPreferencesManager.getIsFirstUse()){
 			SDCardUtils.writeTxt("192.168.10.2:1883",CodeConstants.IP_HOST);
 			SharedPreferencesManager.setIsFirstUse(false);

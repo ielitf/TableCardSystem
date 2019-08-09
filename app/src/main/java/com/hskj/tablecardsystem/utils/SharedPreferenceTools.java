@@ -13,49 +13,35 @@ import java.util.Map;
  */
 
 public class SharedPreferenceTools {
-    public static final String FILE_NAME = "tableCardSystem_sp";
+    private static final String FILE_NAME = "tableCardSystem_sp";
     /**
      * 保存数据到共享参数的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
-     *
-     * @param context
-     * @param key
-     * @param object
      */
-    public static void putValuetoSP(Context context, String key, Object object) {
+    private static SharedPreferences sp;
 
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-
-        if (object instanceof String) {
-            editor.putString(key, (String) object);
-        } else if (object instanceof Integer) {
-            editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float) {
-            editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long) {
-            editor.putLong(key, (Long) object);
-        } else {
-            editor.putString(key, object.toString());
-        }
-
-        SharedPreferencesCompat.apply(editor);
+    public static void init(Context context) {
+        sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
     }
-
+    public static void putValueIntoSP(String key, Object object) {
+        if (object instanceof String) {
+            sp.edit().putString(key, (String) object).apply();
+        } else if (object instanceof Integer) {
+            sp.edit().putInt(key, (Integer) object).apply();
+        } else if (object instanceof Boolean) {
+            sp.edit().putBoolean(key, (Boolean) object).apply();
+        } else if (object instanceof Float) {
+            sp.edit().putFloat(key, (Float) object).apply();
+        } else if (object instanceof Long) {
+            sp.edit().putLong(key, (Long) object).apply();
+        } else {
+            sp.edit().putString(key, object.toString()).apply();
+        }
+    }
 
     /**
      * 从共享参数中取值，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
-     *
-     * @param context
-     * @param key
-     * @param defaultObject
-     * @return
      */
-    public static Object getValueofSP(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
-
+    public static Object getValueFromSP( String key, Object defaultObject) {
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
         } else if (defaultObject instanceof Integer) {
@@ -67,79 +53,47 @@ public class SharedPreferenceTools {
         } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
-
         return null;
     }
 
     /**
      * 移除某个key值已经对应的共享参数的值
-     *
-     * @param context
-     * @param key
      */
-    public static void removeValueforSP(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+    public static void removeValueforSP(String key) {
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         SharedPreferencesCompat.apply(editor);
     }
-
-
-
-
     /**
      * 清除所有共享参数数据
-     *
-     * @param context
      */
-    public static void clearAllSPvalue(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+    public static void clearAllSPvalue() {
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         SharedPreferencesCompat.apply(editor);
     }
-
-
     /**
      * 查询某个key是否已经存在
-     *
-     * @param context
-     * @param key
-     * @return
      */
-    public static boolean containsofSP(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+    public static boolean containsofSP(String key) {
         return sp.contains(key);
     }
 
     /**
      * 返回所有的共享参数键值对
-     *
-     * @param context
-     * @return
      */
-    public static Map<String, ?> getAllofSP(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
+    public static Map<String, ?> getAllofSP() {
         return sp.getAll();
     }
 
     /**
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
-     *
-     * @author zhy
-     *
      */
     private static class SharedPreferencesCompat {
         private static final Method sApplyMethod = findApplyMethod();
 
         /**
          * 反射查找apply的方法
-         *
-         * @return
          */
         @SuppressWarnings({ "unchecked", "rawtypes" })
         private static Method findApplyMethod() {
@@ -148,16 +102,13 @@ public class SharedPreferenceTools {
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
             }
-
             return null;
         }
 
         /**
          * 如果找到则使用apply执行，否则使用commit
-         *
-         * @param editor
          */
-        public static void apply(SharedPreferences.Editor editor) {
+        private static void apply(SharedPreferences.Editor editor) {
             try {
                 if (sApplyMethod != null) {
                     sApplyMethod.invoke(editor);
@@ -170,5 +121,4 @@ public class SharedPreferenceTools {
             editor.commit();
         }
     }
-
 }

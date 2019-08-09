@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,16 +16,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hskj.tablecardsystem.R;
-import com.hskj.tablecardsystem.control.CodeConstants;
 import com.hskj.tablecardsystem.listener.NameCallBack;
 import com.hskj.tablecardsystem.listener.SignCallBack;
 import com.hskj.tablecardsystem.utils.LogUtil;
 import com.hskj.tablecardsystem.utils.MqttService;
-import com.hskj.tablecardsystem.utils.SharedPreferenceTools;
+import com.hskj.tablecardsystem.utils.SharedPreferencesManager;
 
 import java.util.List;
 
-public class MainActivity extends Activity implements NameCallBack, SignCallBack, View.OnClickListener {
+public class MainActivity3 extends Activity implements NameCallBack, SignCallBack, View.OnClickListener {
     public static final int MESSAGE_NAME = 1;
     public static final int MESSAGE_SIGN = 2;
     private TextView nameTV, stateTV;//人名，签到状态
@@ -38,8 +39,7 @@ public class MainActivity extends Activity implements NameCallBack, SignCallBack
                 case MESSAGE_NAME:
                     nameTV.setText(name);
                     stateTV.setText("未签到");
-//                    SharedPreferencesManager.setPersonName(name);
-                    SharedPreferenceTools.putValueIntoSP(CodeConstants.PERSON_NAME, name);
+                    SharedPreferencesManager.setPersonName(name);
                     break;
                 case MESSAGE_SIGN:
                     if ("1".equals(sign)) {
@@ -78,8 +78,10 @@ public class MainActivity extends Activity implements NameCallBack, SignCallBack
         set_img = findViewById(R.id.setting_ibtn);
         set_img.setOnClickListener(this);
 
-        nameTV.setText((CharSequence) SharedPreferenceTools.getValueFromSP(CodeConstants.PERSON_NAME, "待定"));
-        nameTV.setTextSize(Float.parseFloat((String) SharedPreferenceTools.getValueFromSP(CodeConstants.TEXT_SIZE, "200")));
+        nameTV.setText(SharedPreferencesManager.getPersonName());
+        if (!TextUtils.isEmpty(SharedPreferencesManager.getTextSize())) {
+            nameTV.setTextSize(Float.parseFloat(SharedPreferencesManager.getTextSize()));
+        }
     }
 
     @Override
@@ -99,7 +101,7 @@ public class MainActivity extends Activity implements NameCallBack, SignCallBack
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1) {
             stopService(intent);
@@ -113,7 +115,7 @@ public class MainActivity extends Activity implements NameCallBack, SignCallBack
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.setting_ibtn:
-                Intent intent = new Intent(this, SetActivity.class);
+                Intent intent = new Intent(this, SetActivity3.class);
                 startActivityForResult(intent, 1);
                 break;
             default:
