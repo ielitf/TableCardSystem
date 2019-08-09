@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.hskj.TableCardSystem"
+        applicationId "com.hskj.tablecardsystem"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -22,7 +22,7 @@ android {
 }
 def renameAPK(variant, defaultConfig) {
     variant.outputs.all { output ->
-        def applicationName = 'tablecardsystem'
+        def applicationName = 'TableCardSystem'
         def formattedDate = new Date().format('yyyyMMdd')
         def fileName = applicationName + "_v" + defaultConfig.versionName + "_" + formattedDate  +"_offical"+ ".apk"
         outputFileName   = fileName
